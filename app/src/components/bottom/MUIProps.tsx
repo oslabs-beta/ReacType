@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  Button,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -13,6 +14,7 @@ import { Send } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import FormSelector from '../../components/form/Selector';
 import makeStyles from '@mui/styles/makeStyles';
+import { Redo, Undo } from '@mui/icons-material';
 
 // Assume these arrays are defined elsewhere in your code
 const buttonPropsArray3 = []; // Define your Button props array
@@ -47,6 +49,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
   const [muiEventOptionsVisible, setMUIEventOptionsVisible] = useState(false);
   const [muiEventRow, setMUIEventRow] = useState([]);
   const [muiEventRowsVisible, setMUIEventRowsVisible] = useState(false);
+
+  const [eventOptionsVisible, setEventOptionsVisible] = useState(false);
+  const [flexOptionsVisible, setFlexOptionsVisible] = useState(false);
+  const [eventRowsVisible, setEventRowsVisible] = useState(false);
 
   const handleSend = () => {
     // Handle sending selected props
@@ -146,17 +152,308 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
     }
   };
 
+  const marginTopAmount = () => {
+    let totalMargin = 0;
+    if (eventOptionsVisible) totalMargin += 90;
+    if (flexOptionsVisible) totalMargin = Math.max(totalMargin, 210);
+    if (eventRowsVisible) totalMargin = Math.max(totalMargin, 335);
+    return `${totalMargin}px`;
+  };
+
+  // const handleSave = (): Object => {
+  //   dispatch(changeTailwind(false));
+  //   dispatch(
+  //     updateStateUsed({
+  //       stateUsedObj: stateUsedObj,
+  //       contextParam: contextParam
+  //     })
+  //   );
+
+  // const handleDelete = () => {
+  //   dispatch(deleteChild({ id: {}, contextParam: contextParam }));
+  //   if (roomCode) {
+  //     emitEvent('deleteChildAction', roomCode, {
+  //       id: {},
+  //       contextParam: contextParam
+  //     });
+  //     // console.log(
+  //     //   'emit deleteChildAction event is triggered in CustomizationPanel.tsx'
+  //     // );
+  //   }
+  // };
+
   return (
     <div>
-
       {/* Button Customization Options */}
       <Accordion className={classes.accordion}>
-        <AccordionSummary className={classes.accordionSummary}>Button</AccordionSummary>
+        <AccordionSummary className={classes.accordionSummary}>
+          Button
+        </AccordionSummary>
+        <AccordionDetails className={classes.accordionDetails}>
+          <section className={classes.buttonSection}>
+            <div className={classes.buttonLeftDiv}>
+              {/* Size Properties for Button */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Size:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'small', text: 'small' },
+                  { value: 'medium', text: 'medium' },
+                  { value: 'large', text: 'large' }
+                ]}
+              />
+
+              {/* Color Properties for Button */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Color:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'inherit', text: 'inherit' },
+                  { value: 'primary', text: 'primary' },
+                  { value: 'secondary', text: 'secondary' },
+                  { value: 'success', text: 'success' },
+                  { value: 'error', text: 'error' },
+                  { value: 'info', text: 'info' },
+                  { value: 'warning', text: 'warning' }
+                ]}
+              />
+
+              {/* Variant Properties for Button */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Variant:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'contained', text: 'contained' },
+                  { value: 'outlined', text: 'outlined' },
+                  { value: 'text', text: 'text' }
+                ]}
+              />
+
+              {/* href Properties for Button */}
+              <div className={classes.configRow}>
+                <div
+                  className={
+                    isThemeLight
+                      ? `${classes.configType} ${classes.lightThemeFontColor}`
+                      : `${classes.configType} ${classes.darkThemeFontColor}`
+                  }
+                >
+                  <h3>href:</h3>
+                </div>
+                <div className={classes.configValue}>
+                  <FormControl className={classes.formControl}>
+                    <TextField
+                      name="href"
+                      className={classes.select}
+                      inputProps={{
+                        className: isThemeLight
+                          ? `${classes.selectInput} ${classes.lightThemeFontColor}`
+                          : `${classes.selectInput} ${classes.darkThemeFontColor}`
+                      }}
+                      // value={BGColor}
+                      // onChange={handleChange}
+                      placeholder="https://www.reactype.dev/"
+                    />
+                  </FormControl>
+                </div>
+              </div>
+            </div>
+
+            {/* Button Right Div */}
+            <div className={classes.buttonRightDiv}>
+              {/* Disable Options for Button */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Disabled:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'true', text: 'true' },
+                  { value: 'false', text: 'false' }
+                ]}
+              />
+
+              {/* Disable Elevation Options for Button */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Disable Elevation:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'true', text: 'true' },
+                  { value: 'false', text: 'false' }
+                ]}
+              />
+
+              {/* Disable Focus Ripple Options for Button */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Disable Ripple:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'true', text: 'true' },
+                  { value: 'false', text: 'false' }
+                ]}
+              />
+
+              {/* Full Width Options for Button */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Full Width:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'true', text: 'true' },
+                  { value: 'false', text: 'false' }
+                ]}
+              />
+            </div>
+          </section>
+          <div className={classes.buttonRow}
+            style={{ marginTop: marginTopAmount() }}
+            >
+              <div>
+               <Button
+                variant="contained"
+                color="primary"
+                className={
+                  isThemeLight
+                    ? `${classes.button} ${classes.saveButtonLight}`
+                    : `${classes.button} ${classes.saveButtonDark}`
+                }
+                // onClick={console.log('')}
+                id="saveButton"
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}                >
+                Save
+              </Button>
+              </div>
+             
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={
+                    isThemeLight
+                      ? `${classes.button} ${classes.saveButtonLight}`
+                      : `${classes.button} ${classes.saveButtonDark}`
+                  }
+                  // onClick={}
+                  sx={{
+                    textTransform: 'capitalize',
+                    padding: '4px 8px', // Reduces padding inside the button
+                    fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                    minWidth: '64px', // Optionally reduce the minimum width
+                    height: '32px' // Optionally reduce the height
+                  }}                  >
+                  Delete Instance
+                </Button>
+              </div>
+              <div style={{ marginLeft: '17px' }}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleUndo}
+              >
+                <Undo />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleRedo}
+              >
+                <Redo />
+              </Button>
+            </div>
+              </div>
+              </AccordionDetails>
+          </Accordion>
+
+      {/* TextField Customization Options */}
+      <Accordion className={classes.accordion}>
+        <AccordionSummary className={classes.accordionSummary}>
+          TextField
+        </AccordionSummary>
         <AccordionDetails className={classes.accordionDetails}>
           <section className={classes.buttonSection}>
             <div className={classes.buttonLeftDiv}>
               
-              {/* Size Properties for Button */}
+              {/* Color Properties for TextField */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Color:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'primary', text: 'primary' },
+                  { value: 'secondary', text: 'secondary' },
+                  { value: 'error', text: 'error' },
+                  { value: 'info', text: 'info' },
+                  { value: 'success', text: 'success' },
+                  { value: 'warning', text: 'warning' }
+                ]}
+              />
+
+              {/* Margin Properties for TextField */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Margin:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'dense', text: 'dense' },
+                  { value: 'none', text: 'none' },
+                  { value: 'normal', text: 'normal' }
+                ]}
+              />
+
+              {/* Size Properties for TextField */}
               <FormSelector
                 classes={classes}
                 selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
@@ -167,30 +464,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
                   { value: '', text: 'default' },
                   { value: 'small', text: 'small' },
                   { value: 'medium', text: 'medium' },
-                  { value: 'large', text: 'large' }
                 ]}
               />
 
-              {/* Color Properties for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Color:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'inherit', text: 'inherit' },
-                  { value: 'primary', text: 'primary' },
-                  { value: 'secondary', text: 'secondary' },
-                  { value: 'success', text: 'success' },
-                  { value: 'error', text: 'error' },
-                  { value: 'info', text: 'info' },
-                  { value: 'warning', text: 'warning' }
-                ]}
-              />
-
-              {/* Variant Properties for Button */}
+              {/* Variant Properties for TextField */}
               <FormSelector
                 classes={classes}
                 selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
@@ -199,13 +476,13 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
                 name="muiDisplayMode" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
-                  { value: 'contained', text: 'contained' },
+                  { value: 'filled', text: 'filled' },
                   { value: 'outlined', text: 'outlined' },
-                  { value: 'text', text: 'text' }
+                  { value: 'standard', text: 'standard' }
                 ]}
               />
 
-              {/* href Properties for Button */}
+              {/* Name Properties for TextField */}
               <div className={classes.configRow}>
                 <div
                   className={
@@ -214,12 +491,12 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
                       : `${classes.configType} ${classes.darkThemeFontColor}`
                   }
                 >
-                  <h3>href:</h3>
+                  <h3>Name:</h3>
                 </div>
                 <div className={classes.configValue}>
                   <FormControl className={classes.formControl}>
                     <TextField
-                      name="href"
+                      name="name"
                       className={classes.select}
                       inputProps={{
                         className: isThemeLight
@@ -228,59 +505,116 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
                       }}
                       // value={BGColor}
                       // onChange={handleChange}
-                      placeholder="https://www.reactype.dev/"
+                      placeholder="ReacType"
                     />
                   </FormControl>
                 </div>
               </div>
-            </div>  
+                {/* Placeholder div for TextField */}
+              <div className={classes.configRow}>
+                <div
+                  className={
+                    isThemeLight
+                      ? `${classes.configType} ${classes.lightThemeFontColor}`
+                      : `${classes.configType} ${classes.darkThemeFontColor}`
+                  }
+                >
+                  <h3>Placeholder:</h3>
+                </div>
+                <div className={classes.configValue}>
+                  <FormControl className={classes.formControl}>
+                    <TextField
+                      name="placeholder"
+                      className={classes.select}
+                      inputProps={{
+                        className: isThemeLight
+                          ? `${classes.selectInput} ${classes.lightThemeFontColor}`
+                          : `${classes.selectInput} ${classes.darkThemeFontColor}`
+                      }}
+                      // value={BGColor}
+                      // onChange={handleChange}
+                      placeholder="ReacType"
+                    />
+                  </FormControl>
+              </div>              
+            </div>
 
-            {/* Button Right Div */}
+              {/* Id div for TextField */}
+              <div className={classes.configRow}>
+                <div
+                  className={
+                    isThemeLight
+                      ? `${classes.configType} ${classes.lightThemeFontColor}`
+                      : `${classes.configType} ${classes.darkThemeFontColor}`
+                  }
+                >
+                  <h3>Id:</h3>
+                </div>
+                <div className={classes.configValue}>
+                  <FormControl className={classes.formControl}>
+                    <TextField
+                      name="id"
+                      className={classes.select}
+                      inputProps={{
+                        className: isThemeLight
+                          ? `${classes.selectInput} ${classes.lightThemeFontColor}`
+                          : `${classes.selectInput} ${classes.darkThemeFontColor}`
+                      }}
+                      // value={BGColor}
+                      // onChange={handleChange}
+                      placeholder="ReacType"
+                    />
+                  </FormControl>
+              </div>              
+            </div>
+           </div>
+    
+            {/* textField Right Div */}
             <div className={classes.buttonRightDiv}>
 
-              {/* Disable Options for Button */}
+              {/* Auto Complete Options for TextField */}
               <FormSelector
                 classes={classes}
                 selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Disabled:"
+                title="Auto Focus:"
                 name="muiDisplayMode" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
+                  { value: 'false', text: 'false' }
                 ]}
               />
 
-              {/* Disable Elevation Options for Button */}
+              {/* Disable Options for TextField */}
               <FormSelector
                 classes={classes}
                 selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Disable Elevation:"
+                title="Disable:"
                 name="muiDisplayMode" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
+                  { value: 'false', text: 'false' }
                 ]}
               />
 
-              {/* Disable Focus Ripple Options for Button */}
+              {/* Error Options for TextField */}
               <FormSelector
                 classes={classes}
                 selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Disable Ripple:"
+                title="Error:"
                 name="muiDisplayMode" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
+                  { value: 'false', text: 'false' }
                 ]}
               />
 
-              {/* Full Width Options for Button */}
+              {/* Full Width Options for TextField */}
               <FormSelector
                 classes={classes}
                 selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
@@ -290,164 +624,105 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
+                  { value: 'false', text: 'false' }
                 ]}
               />
 
+              {/* Multiline Options for TextField */}
+              <FormSelector
+                classes={classes}
+                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
+                title="Multiline:"
+                name="muiDisplayMode" // Matching with the name in the change handler
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'true', text: 'true' },
+                  { value: 'false', text: 'false' }
+                ]}
+              />
             </div>
           </section>
-        </AccordionDetails>
-      </Accordion>
-
-      {/* TextField Customization Options */}
-      <Accordion className={classes.accordion}>
-        <AccordionSummary className={classes.accordionSummary}>TextField</AccordionSummary>     
-        <AccordionDetails className={classes.accordionDetails}>
-        <section className={classes.buttonSection}>
-            <div className={classes.buttonLeftDiv}>
-              
-              {/* Size Properties for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Size:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'small', text: 'small' },
-                  { value: 'medium', text: 'medium' },
-                  { value: 'large', text: 'large' }
-                ]}
-              />
-
-              {/* Color Properties for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Color:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'inherit', text: 'inherit' },
-                  { value: 'primary', text: 'primary' },
-                  { value: 'secondary', text: 'secondary' },
-                  { value: 'success', text: 'success' },
-                  { value: 'error', text: 'error' },
-                  { value: 'info', text: 'info' },
-                  { value: 'warning', text: 'warning' }
-                ]}
-              />
-
-              {/* Variant Properties for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Variant:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'contained', text: 'contained' },
-                  { value: 'outlined', text: 'outlined' },
-                  { value: 'text', text: 'text' }
-                ]}
-              />
-
-              {/* href Properties for Button */}
-              <div className={classes.configRow}>
-                <div
+          <div className={classes.buttonRow}
+            style={{ marginTop: marginTopAmount() }}
+            >
+              <div>
+               <Button
+                variant="contained"
+                color="primary"
+                className={
+                  isThemeLight
+                    ? `${classes.button} ${classes.saveButtonLight}`
+                    : `${classes.button} ${classes.saveButtonDark}`
+                }
+                // onClick={console.log('')}
+                id="saveButton"
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}                >
+                Save
+              </Button>
+              </div>
+             
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
                   className={
                     isThemeLight
-                      ? `${classes.configType} ${classes.lightThemeFontColor}`
-                      : `${classes.configType} ${classes.darkThemeFontColor}`
+                      ? `${classes.button} ${classes.saveButtonLight}`
+                      : `${classes.button} ${classes.saveButtonDark}`
                   }
-                >
-                  <h3>href:</h3>
-                </div>
-                <div className={classes.configValue}>
-                  <FormControl className={classes.formControl}>
-                    <TextField
-                      name="href"
-                      className={classes.select}
-                      inputProps={{
-                        className: isThemeLight
-                          ? `${classes.selectInput} ${classes.lightThemeFontColor}`
-                          : `${classes.selectInput} ${classes.darkThemeFontColor}`
-                      }}
-                      // value={BGColor}
-                      // onChange={handleChange}
-                      placeholder="https://www.reactype.dev/"
-                    />
-                  </FormControl>
-                </div>
+                  // onClick={}
+                  sx={{
+                    textTransform: 'capitalize',
+                    padding: '4px 8px', // Reduces padding inside the button
+                    fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                    minWidth: '64px', // Optionally reduce the minimum width
+                    height: '32px' // Optionally reduce the height
+                  }}                  >
+                  Delete Instance
+                </Button>
               </div>
-            </div>  
-
-            {/* Button Right Div */}
-            <div className={classes.buttonRightDiv}>
-
-              {/* Disable Options for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Disabled:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
-                ]}
-              />
-
-              {/* Disable Elevation Options for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Disable Elevation:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
-                ]}
-              />
-
-              {/* Disable Focus Ripple Options for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Disable Ripple:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
-                ]}
-              />
-
-              {/* Full Width Options for Button */}
-              <FormSelector
-                classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
-                handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
-                title="Full Width:"
-                name="muiDisplayMode" // Matching with the name in the change handler
-                items={[
-                  { value: '', text: 'default' },
-                  { value: 'true', text: 'true' },
-                  { value: 'false', text: 'false' },
-                ]}
-              />
-
+              <div style={{ marginLeft: '17px' }}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleUndo}
+              >
+                <Undo />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleRedo}
+              >
+                <Redo />
+              </Button>
             </div>
-          </section>
-        </AccordionDetails>
-      </Accordion>
+              </div>
+              </AccordionDetails>
+          </Accordion>
 
       {/* Card Customization Options */}
       <Accordion className={classes.accordion}>
@@ -455,26 +730,277 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
           Card
         </AccordionSummary>
         <AccordionDetails className={classes.accordionDetails}>
+          <section className={classes.buttonSection}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {renderPropInputs(inputPropsArray2)}
+            {/* {renderPropInputs(inputPropsArray2)} */}
+            <FormSelector
+              classes={classes}
+              selectValue={muiDisplayMode}
+              handleChange={handleMUIChange}
+              title="Raised:"
+              name="muiDisplayMode"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'false', text: 'false' },
+                { value: 'true', text: 'true' },
+              ]}
+              /> 
           </div>
-        </AccordionDetails>
-      </Accordion>
+          </section>
+          <div className={classes.buttonRow}
+            style={{ marginTop: marginTopAmount() }}
+            >
+              <div>
+               <Button
+                variant="contained"
+                color="primary"
+                className={
+                  isThemeLight
+                    ? `${classes.button} ${classes.saveButtonLight}`
+                    : `${classes.button} ${classes.saveButtonDark}`
+                }
+                // onClick={console.log('')}
+                id="saveButton"
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}                >
+                Save
+              </Button>
+              </div>
+             
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={
+                    isThemeLight
+                      ? `${classes.button} ${classes.saveButtonLight}`
+                      : `${classes.button} ${classes.saveButtonDark}`
+                  }
+                  // onClick={}
+                  sx={{
+                    textTransform: 'capitalize',
+                    padding: '4px 8px', // Reduces padding inside the button
+                    fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                    minWidth: '64px', // Optionally reduce the minimum width
+                    height: '32px' // Optionally reduce the height
+                  }}                  >
+                  Delete Instance
+                </Button>
+              </div>
+              <div style={{ marginLeft: '17px' }}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleUndo}
+              >
+                <Undo />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleRedo}
+              >
+                <Redo />
+              </Button>
+            </div>
+              </div>
+              </AccordionDetails>
+          </Accordion>
 
       {/* Typography Customization Options */}
       <Accordion className={classes.accordion}>
         <AccordionSummary className={classes.accordionSummary}>
           Typography
-        </AccordionSummary>
+          </AccordionSummary>
         <AccordionDetails className={classes.accordionDetails}>
+          <section className={classes.buttonSection}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            {renderPropInputs(typographyPropsArray4)}
+            {/* {renderPropInputs(inputPropsArray2)} */}
+            <FormSelector
+              classes={classes}
+              selectValue={muiDisplayMode}
+              handleChange={handleMUIChange}
+              title="Align:"
+              name="muiDisplayMode"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'center', text: 'center' },
+                { value: 'inherit', text: 'inherit' },
+                { value: 'justify', text: 'justify' },
+                { value: 'left', text: 'left' },
+                { value: 'right', text: 'right' },
+              ]}
+              />
+               <FormSelector
+              classes={classes}
+              selectValue={muiDisplayMode}
+              handleChange={handleMUIChange}
+              title="GutterBottom:"
+              name="muiDisplayMode"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'true', text: 'true' },
+                { value: 'false', text: 'false' },
+              ]}
+              /> 
+               <FormSelector
+              classes={classes}
+              selectValue={muiDisplayMode}
+              handleChange={handleMUIChange}
+              title="noWrap:"
+              name="muiDisplayMode"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'true', text: 'true' },
+                { value: 'false', text: 'false' },
+              ]}
+              />
+              </div>
+          <div className={classes.buttonRightDiv}>
+            <FormSelector
+              classes={classes}
+              selectValue={muiDisplayMode}
+              handleChange={handleMUIChange}
+              title="Paragraph:"
+              name="muiDisplayMode"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'true', text: 'true' },
+                { value: 'false', text: 'false' },
+              ]}
+              /> 
+              <FormSelector
+              classes={classes}
+              selectValue={muiDisplayMode}
+              handleChange={handleMUIChange}
+              title="Variant:"
+              name="muiDisplayMode"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'body1', text: 'body1' },
+                { value: 'body2', text: 'body2' },
+                { value: 'button', text: 'button' },
+                { value: 'caption', text: 'caption' },
+                { value: 'h1', text: 'h1' },
+                { value: 'h2', text: 'h2' },
+                { value: 'h3', text: 'h3' },
+                { value: 'h4', text: 'h4' },
+                { value: 'h5', text: 'h5' },
+                { value: 'h6', text: 'h6' },
+                { value: 'inherit', text: 'inherit' },
+                { value: 'overline', text: 'overline' },
+                { value: 'subtitle1', text: 'subtitle1' },
+                { value: 'subtitle2', text: 'subtitle2' },
+                { value: 'justify', text: 'justify' },
+                { value: 'left', text: 'left' },
+                { value: 'right', text: 'right' },
+              ]}
+              />
+              </div>
+              </section>
+              <div className={classes.buttonRow}
+            style={{ marginTop: marginTopAmount() }}
+            >
+              <div>
+               <Button
+                variant="contained"
+                color="primary"
+                className={
+                  isThemeLight
+                    ? `${classes.button} ${classes.saveButtonLight}`
+                    : `${classes.button} ${classes.saveButtonDark}`
+                }
+                // onClick={console.log('')}
+                id="saveButton"
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}              >
+                Save
+              </Button>
+              </div>
+             
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={
+                    isThemeLight
+                      ? `${classes.button} ${classes.saveButtonLight}`
+                      : `${classes.button} ${classes.saveButtonDark}`
+                  }
+                  // onClick={}
+                  sx={{
+                    textTransform: 'capitalize',
+                    padding: '4px 8px', // Reduces padding inside the button
+                    fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                    minWidth: '64px', // Optionally reduce the minimum width
+                    height: '32px' // Optionally reduce the height
+                  }}                  >
+                  Delete Instance
+                </Button>
+              </div>
+              <div style={{ marginLeft: '17px' }}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleUndo}
+              >
+                <Undo />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                // onClick={handleRedo}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+              >
+                <Redo />
+              </Button>
+            </div>
+              </div>
+              </AccordionDetails>
+          </Accordion>
           </div>
-        </AccordionDetails>
-      </Accordion>
 
-      <button onClick={handleSend}>Save</button>
-    </div>
   );
 };
 
@@ -491,7 +1017,10 @@ const useStyles = makeStyles({
     paddingLeft: '15px'
   },
   formControl: {
-    minWidth: '125px'
+    minWidth: '125px',
+    '&:focus-within': {
+      backgroundColor: 'black', // Attempting to style the control on focus
+    }
   },
   configRow: {
     display: 'flex',
@@ -576,15 +1105,18 @@ const useStyles = makeStyles({
   accordion: {
     backgroundColor: 'black',
     color: 'white',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  
   },
   accordionDetails: {
     backgroundColor: 'black',
-    color: 'white'
+    color: 'white',
+
   },
   accordionSummary: {
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+    backgroundColor: 'black',
+  },
 });
 
 export default MUIProps;
