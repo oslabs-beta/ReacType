@@ -1,58 +1,54 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Typography,
   Select,
   MenuItem,
   TextField,
   FormControl
 } from '@mui/material';
-import { Send } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import FormSelector from '../../components/form/Selector';
 import makeStyles from '@mui/styles/makeStyles';
 import { Redo, Undo } from '@mui/icons-material';
 
-// Assume these arrays are defined elsewhere in your code
-const buttonPropsArray3 = []; // Define your Button props array
-const textFieldpropsArray = []; // Define your TextField props array
-const inputPropsArray2 = []; // Define your Input props array
-const typographyPropsArray4 = []; // Define your Typography props array
 
 const MUIProps = ({ isThemeLight }): JSX.Element => {
   const classes = useStyles(isThemeLight);
   const dispatch = useDispatch();
   const [selectedProps, setSelectedProps] = useState({});
-  const [displayMode, setDisplayMode] = useState('');
-  const [muiDisplayMode, setMUIDisplayMode] = useState('');
-  const [muiFlexDir, setMUIFlexDir] = useState('');
-  const [muiFlexJustify, setMUIFlexJustify] = useState('');
-  const [muiFlexAlign, setMUIFlexAlign] = useState('');
-  const [muiFlexOptionsVisible, setMUIFlexOptionsVisible] = useState(false);
-  const [muiBGColor, setMUIBGColor] = useState('');
-  const [muiCompText, setMUICompText] = useState('');
-  const [muiCompLink, setMUICompLink] = useState('');
-  const [muiCssClasses, setMUICssClasses] = useState('');
-  const [muiCompWidth, setMUICompWidth] = useState('');
-  const [muiCompHeight, setMUICompHeight] = useState('');
-  const [muiDeleteLinkedPageError, setMUIDeleteLinkedPageError] =
-    useState(false);
-  const [muiDeleteIndexError, setMUIDeleteIndexError] = useState(false);
-  const [muiDeleteComponentError, setMUIDeleteComponentError] = useState(false);
-  const [muiModal, setMUIModal] = useState(null);
-  const [muiUseContextObj, setMUIUseContextObj] = useState({});
-  const [muiStateUsedObj, setMUIStateUsedObj] = useState({});
-  const [muiEventAll, setMUIEventAll] = useState(['', '']);
-  const [muiEventOptionsVisible, setMUIEventOptionsVisible] = useState(false);
-  const [muiEventRow, setMUIEventRow] = useState([]);
-  const [muiEventRowsVisible, setMUIEventRowsVisible] = useState(false);
-
   const [eventOptionsVisible, setEventOptionsVisible] = useState(false);
   const [flexOptionsVisible, setFlexOptionsVisible] = useState(false);
   const [eventRowsVisible, setEventRowsVisible] = useState(false);
+  const [buttonSize, setButtonSize] = useState('');
+  const [buttonColor, setButtonColor] = useState('');
+  const [buttonVariant, setButtonVariant] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState('');
+  const [buttonDisableElevation, setButtonDisableElevation] = useState('');
+  const [buttonDisableRipple, setButtonDisableRipple] = useState('');
+  const [buttonFullWidth, setButtonFullWidth] = useState('');
+  const [typographyVariant, setTypographyVariant] = useState('');
+  const [typographyParagraph, setTypographyParagraph] = useState('');
+  const [typographyNoWrap, setTypographyNoWrap] = useState('');
+  const [typographyGutterBottom, setTypographyGutterBottom] = useState('');
+  const [typographyAlign, setTypographyAlign] = useState('');
+  const [cardRaised, setCardRaised] = useState('');
+  const [textFieldColor, setTextFieldColor] = useState('');
+  const [textFieldMargin, setTextFieldMargin] = useState('');
+  const [textFieldMultiline, setTextFieldMultiline] = useState('');
+  const [textFieldFullWidth, setTextFieldFullWidth] = useState('');
+  const [textFieldError, setTextFieldError] = useState('');
+  const [textFieldDisable, setTextFieldDisable] = useState('');
+  const [textFieldAutoFocus, setTextFieldAutoFocus] = useState('');
+  const [textFieldVariant, setTextFieldVariant] = useState('');
+  const [textFieldSize, setTextFieldSize] = useState('');
+  const [buttonGroupColor, setButtonGroupColor] = useState('');
+  const [buttonGroupOrientation, setButtonGroupOrientation] = useState('');
+  const [buttonGroupSize, setButtonGroupSize] = useState('');
+  const [buttonGroupVariant, setButtonGroupVariant] = useState('');
+  const [buttonGroupDisable, setbuttonGroupDisable] = useState('');
 
   const handleSend = () => {
     // Handle sending selected props
@@ -84,68 +80,119 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
     ));
   };
 
+
+
+
+  // const resetFields = () => {
+  //   const childrenArray = deepIterate(configTarget.children);
+  //   for (const element of childrenArray) {
+  //     if (configTarget.child && element.childId === configTarget.child.id) {
+  //       const attributes = element.attributes;
+  //       const style = element.style;
+  //       setCompText(attributes.compText ? attributes.compText : '');
+  //       setCompLink(attributes.compLink ? attributes.compLink : '');
+  //       setCssClasses(attributes.cssClasses ? attributes.cssClasses : '');
+  //     }
+  //   }
+  //   const style = configTarget.child
+  //     ? configTarget.child.style
+  //     : configTarget.style;
+  //   setDisplayMode(style.display ? style.display : '');
+  //   setFlexDir(style.flexDirection ? style.flexDirection : '');
+  //   setFlexJustify(style.justifyContent ? style.justifyContent : '');
+  //   setFlexAlign(style.alignItems ? style.alignItems : '');
+  //   setCompWidth(style.width ? style.width : '');
+  //   setCompHeight(style.height ? style.height : '');
+  //   setBGColor(style.backgroundColor ? style.backgroundColor : '');
+  //   setEventAll(['', '']);
+  // };
+
+
+  
+
   const handleMUIChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputVal = e.target.value;
     switch (e.target.name) {
-      case 'muiDisplayMode':
-        setMUIDisplayMode(inputVal);
+      case 'buttonSize':
+        setButtonSize(inputVal)
         break;
-      case 'muiFlexDir':
-        setMUIFlexDir(inputVal);
+      case 'buttonColor':
+        setButtonColor(inputVal)
         break;
-      case 'muiFlexJustify':
-        setMUIFlexJustify(inputVal);
+      case 'buttonDisabled':
+        setButtonDisabled(inputVal)
         break;
-      case 'muiFlexAlign':
-        setMUIFlexAlign(inputVal);
+      case 'buttonDisableRipple':
+        setButtonDisableRipple(inputVal)
         break;
-      case 'muiBGColor':
-        setMUIBGColor(inputVal);
+      case 'buttonFullWidth':
+        setButtonFullWidth(inputVal)
         break;
-      case 'muiCompText':
-        setMUICompText(inputVal);
+      case 'typographyVariant':
+        setTypographyVariant(inputVal)
         break;
-      case 'muiCompLink':
-        setMUICompLink(inputVal);
+      case 'typographyParagraph':
+        setTypographyParagraph(inputVal)
         break;
-      case 'muiCssClasses':
-        setMUICssClasses(inputVal);
+      case 'buttonVariant':
+        setButtonVariant(inputVal)
         break;
-      case 'muiCompWidth':
-        setMUICompWidth(inputVal);
+      case 'buttonDisableElevation':
+        setButtonDisableElevation(inputVal)
         break;
-      case 'muiCompHeight':
-        setMUICompHeight(inputVal);
+      case 'typographyNoWrap':
+        setTypographyNoWrap(inputVal)
         break;
-      case 'muiDeleteLinkedPageError':
-        setMUIDeleteLinkedPageError(Boolean(inputVal));
+      case 'typographyGutterBottom':
+        setTypographyGutterBottom(inputVal)
         break;
-      case 'muiDeleteIndexError':
-        setMUIDeleteIndexError(Boolean(inputVal));
+      case 'typographyAlign':
+        setTypographyAlign(inputVal)
         break;
-      case 'muiDeleteComponentError':
-        setMUIDeleteComponentError(Boolean(inputVal));
+      case 'cardRaised':
+        setCardRaised(inputVal)
         break;
-      case 'muiModal':
-        setMUIModal(inputVal);
+      case 'textFieldMultiline':
+        setTextFieldMultiline(inputVal)
         break;
-      case 'muiUseContextObj':
-        setMUIUseContextObj(inputVal);
+      case 'textFieldFullWidth':
+        setTextFieldFullWidth(inputVal)
         break;
-      case 'muiStateUsedObj':
-        setMUIStateUsedObj(inputVal);
+      case 'textFieldError':
+        setTextFieldError(inputVal)
         break;
-      case 'muiEventAll':
-        setMUIEventAll(Array(inputVal));
+      case 'textFieldDisable':
+        setTextFieldDisable(inputVal)
         break;
-      case 'muiEventOptionsVisible':
-        setMUIEventOptionsVisible(Boolean(inputVal));
+      case 'textFieldAutoFocus':
+        setTextFieldAutoFocus(inputVal)
         break;
-      case 'muiEventRow':
-        setMUIEventRow(Array(inputVal));
+      case 'textFieldColor':
+        setTextFieldColor(inputVal)
         break;
-      case 'muiEventRowsVisible':
-        setMUIEventRowsVisible(Boolean(inputVal));
+      case 'textFieldMargin':
+        setTextFieldMargin(inputVal)
+        break; 
+      case 'textFieldVariant':
+        setTextFieldVariant(inputVal)
+        break;
+      case 'textFieldSize':
+        setTextFieldSize(inputVal)
+        break;
+      case 'buttonGroupColor':
+        setButtonGroupColor(inputVal)
+        break;
+      case 'buttonGroupOrientation':
+        setButtonGroupOrientation(inputVal)
+        break;
+      case 'buttonGroupSize':
+        setButtonGroupSize(inputVal)
+        break;
+      case 'buttonGroupVariant':
+        setButtonGroupVariant(inputVal)
+        break;
+      case 'buttonGroupDisable':
+        setbuttonGroupDisable(inputVal)
         break;
       default:
         break;
@@ -160,28 +207,6 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
     return `${totalMargin}px`;
   };
 
-  // const handleSave = (): Object => {
-  //   dispatch(changeTailwind(false));
-  //   dispatch(
-  //     updateStateUsed({
-  //       stateUsedObj: stateUsedObj,
-  //       contextParam: contextParam
-  //     })
-  //   );
-
-  // const handleDelete = () => {
-  //   dispatch(deleteChild({ id: {}, contextParam: contextParam }));
-  //   if (roomCode) {
-  //     emitEvent('deleteChildAction', roomCode, {
-  //       id: {},
-  //       contextParam: contextParam
-  //     });
-  //     // console.log(
-  //     //   'emit deleteChildAction event is triggered in CustomizationPanel.tsx'
-  //     // );
-  //   }
-  // };
-
   return (
     <div>
       {/* Button Customization Options */}
@@ -195,10 +220,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Size Properties for Button */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={buttonSize} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Size:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="buttonSize" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'small', text: 'small' },
@@ -210,10 +235,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Color Properties for Button */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={buttonColor} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Color:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="buttonColor" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'inherit', text: 'inherit' },
@@ -229,10 +254,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Variant Properties for Button */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={buttonVariant} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Variant:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="buttonVariant" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'contained', text: 'contained' },
@@ -264,7 +289,7 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
                       }}
                       // value={BGColor}
                       // onChange={handleChange}
-                      placeholder="https://www.reactype.dev/"
+                      placeholder="www.reactype.dev"
                     />
                   </FormControl>
                 </div>
@@ -276,10 +301,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Disable Options for Button */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={buttonDisabled} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Disabled:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="buttonDisabled" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -290,10 +315,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Disable Elevation Options for Button */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={buttonDisableElevation} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Disable Elevation:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="buttonDisableElevation" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -304,10 +329,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Disable Focus Ripple Options for Button */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={buttonDisableRipple} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Disable Ripple:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="buttonDisableRipple" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -318,10 +343,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Full Width Options for Button */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={buttonFullWidth} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Full Width:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="buttonFullWidth" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -423,10 +448,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Color Properties for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldColor} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Color:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldColor" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'primary', text: 'primary' },
@@ -441,10 +466,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Margin Properties for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldMargin} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Margin:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldMargin" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'dense', text: 'dense' },
@@ -456,10 +481,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Size Properties for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldSize} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Size:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldSize" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'small', text: 'small' },
@@ -470,10 +495,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Variant Properties for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldVariant} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Variant:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldVariant" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'filled', text: 'filled' },
@@ -575,10 +600,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Auto Complete Options for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldAutoFocus} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Auto Focus:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldAutoFocus" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -589,10 +614,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Disable Options for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldDisable} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Disable:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldDisable" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -603,10 +628,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Error Options for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldError} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Error:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldError" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -617,10 +642,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Full Width Options for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldFullWidth} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Full Width:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldFullWidth" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -631,10 +656,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               {/* Multiline Options for TextField */}
               <FormSelector
                 classes={classes}
-                selectValue={muiDisplayMode} // Using muiDisplayMode for Material UI state
+                selectValue={textFieldMultiline} // Using muiDisplayMode for Material UI state
                 handleChange={handleMUIChange} // Using handleMUIChange for Material UI props
                 title="Multiline:"
-                name="muiDisplayMode" // Matching with the name in the change handler
+                name="textFieldMultiline" // Matching with the name in the change handler
                 items={[
                   { value: '', text: 'default' },
                   { value: 'true', text: 'true' },
@@ -735,10 +760,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
             {/* {renderPropInputs(inputPropsArray2)} */}
             <FormSelector
               classes={classes}
-              selectValue={muiDisplayMode}
+              selectValue={cardRaised}
               handleChange={handleMUIChange}
               title="Raised:"
-              name="muiDisplayMode"
+              name="cardRaised"
               items={[
                 { value: '', text: 'default' },
                 { value: 'false', text: 'false' },
@@ -839,10 +864,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
             {/* {renderPropInputs(inputPropsArray2)} */}
             <FormSelector
               classes={classes}
-              selectValue={muiDisplayMode}
+              selectValue={typographyAlign}
               handleChange={handleMUIChange}
               title="Align:"
-              name="muiDisplayMode"
+              name="typographyAlign"
               items={[
                 { value: '', text: 'default' },
                 { value: 'center', text: 'center' },
@@ -854,10 +879,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               />
                <FormSelector
               classes={classes}
-              selectValue={muiDisplayMode}
+              selectValue={typographyGutterBottom}
               handleChange={handleMUIChange}
               title="GutterBottom:"
-              name="muiDisplayMode"
+              name="typographyGutterBottom"
               items={[
                 { value: '', text: 'default' },
                 { value: 'true', text: 'true' },
@@ -866,10 +891,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               /> 
                <FormSelector
               classes={classes}
-              selectValue={muiDisplayMode}
+              selectValue={typographyNoWrap}
               handleChange={handleMUIChange}
               title="noWrap:"
-              name="muiDisplayMode"
+              name="typographyNoWrap"
               items={[
                 { value: '', text: 'default' },
                 { value: 'true', text: 'true' },
@@ -880,10 +905,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
           <div className={classes.buttonRightDiv}>
             <FormSelector
               classes={classes}
-              selectValue={muiDisplayMode}
+              selectValue={typographyParagraph}
               handleChange={handleMUIChange}
               title="Paragraph:"
-              name="muiDisplayMode"
+              name="typographyParagraph"
               items={[
                 { value: '', text: 'default' },
                 { value: 'true', text: 'true' },
@@ -892,10 +917,10 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               /> 
               <FormSelector
               classes={classes}
-              selectValue={muiDisplayMode}
+              selectValue={typographyVariant}
               handleChange={handleMUIChange}
               title="Variant:"
-              name="muiDisplayMode"
+              name="typographyVariant"
               items={[
                 { value: '', text: 'default' },
                 { value: 'body1', text: 'body1' },
@@ -999,6 +1024,296 @@ const MUIProps = ({ isThemeLight }): JSX.Element => {
               </div>
               </AccordionDetails>
           </Accordion>
+
+          {/* AutoComplete Customization Options */}
+          <Accordion className={classes.accordion}>
+        <AccordionSummary className={classes.accordionSummary}>
+          AutoComplete
+        </AccordionSummary>
+        <AccordionDetails className={classes.accordionDetails}>
+          <section className={classes.buttonSection}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {/* {renderPropInputs(inputPropsArray2)} */}
+            <FormSelector
+              classes={classes}
+              selectValue={cardRaised}
+              handleChange={handleMUIChange}
+              title="Raised:"
+              name="cardRaised"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'false', text: 'false' },
+                { value: 'true', text: 'true' },
+              ]}
+              /> 
+          </div>
+          </section>
+          <div className={classes.buttonRow}
+            style={{ marginTop: marginTopAmount() }}
+            >
+              <div>
+               <Button
+                variant="contained"
+                color="primary"
+                className={
+                  isThemeLight
+                    ? `${classes.button} ${classes.saveButtonLight}`
+                    : `${classes.button} ${classes.saveButtonDark}`
+                }
+                // onClick={console.log('')}
+                id="saveButton"
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}                >
+                Save
+              </Button>
+              </div>
+             
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={
+                    isThemeLight
+                      ? `${classes.button} ${classes.saveButtonLight}`
+                      : `${classes.button} ${classes.saveButtonDark}`
+                  }
+                  // onClick={}
+                  sx={{
+                    textTransform: 'capitalize',
+                    padding: '4px 8px', // Reduces padding inside the button
+                    fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                    minWidth: '64px', // Optionally reduce the minimum width
+                    height: '32px' // Optionally reduce the height
+                  }}                  >
+                  Delete Instance
+                </Button>
+              </div>
+              <div style={{ marginLeft: '17px' }}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleUndo}
+              >
+                <Undo />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleRedo}
+              >
+                <Redo />
+              </Button>
+            </div>
+              </div>
+              </AccordionDetails>
+          </Accordion>
+
+
+          {/* ButtonGroup Customization Options */}
+          <Accordion className={classes.accordion}>
+        <AccordionSummary className={classes.accordionSummary}>
+        ButtonGroup
+        </AccordionSummary>
+        <AccordionDetails className={classes.accordionDetails}>
+          <section className={classes.buttonSection}>
+          <div className={classes.buttonLeftDiv}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          
+            <FormSelector
+              classes={classes}
+              selectValue={buttonGroupColor}
+              handleChange={handleMUIChange}
+              title="Color:"
+              name="buttonGroupColor"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'primary', text: 'primary' },
+                { value: 'secondary', text: 'secondary' },
+                { value: 'error', text: 'error' },
+                { value: 'info', text: 'info' },
+                { value: 'success', text: 'success' },
+                { value: 'warning', text: 'warning' }
+              ]}
+              /> 
+
+            <FormSelector
+              classes={classes}
+              selectValue={buttonGroupOrientation}
+              handleChange={handleMUIChange}
+              title="Orientation:"
+              name="buttonGroupOrientation"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'horizontal', text: 'horizontal' },
+                { value: 'vertical', text: 'vertical' },
+              ]}
+              />  
+
+            <FormSelector
+              classes={classes}
+              selectValue={buttonGroupSize}
+              handleChange={handleMUIChange}
+              title="Size:"
+              name="buttonGroupSize"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'small', text: 'small' },
+                { value: 'medium', text: 'medium' },
+                { value: 'large', text: 'large' },
+              ]}
+              />
+
+            <FormSelector
+              classes={classes}
+              selectValue={buttonGroupVariant}
+              handleChange={handleMUIChange}
+              title="Variant:"
+              name="buttonGroupVariant"
+              items={[
+                { value: '', text: 'default' },
+                { value: 'contained', text: 'contained' },
+                { value: 'outlined', text: 'outlined' },
+                { value: 'text', text: 'text' },
+              ]}
+              /> 
+
+            <FormSelector
+                classes={classes}
+                selectValue={buttonGroupDisable} 
+                handleChange={handleMUIChange} 
+                title="Disable:"
+                name="buttonGroupDisable" 
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'true', text: 'true' },
+                  { value: 'false', text: 'false' }
+                ]}
+              />
+
+            </div>
+          </div>
+
+          <div className={classes.buttonRightDiv}>
+            
+          <FormSelector
+                classes={classes}
+                selectValue={buttonGroupDisable} 
+                handleChange={handleMUIChange} 
+                title="Disable:"
+                name="buttonGroupDisable" 
+                items={[
+                  { value: '', text: 'default' },
+                  { value: 'true', text: 'true' },
+                  { value: 'false', text: 'false' }
+                ]}
+              />
+
+            
+          </div>
+
+          </section>
+          <div className={classes.buttonRow}
+            style={{ marginTop: marginTopAmount() }}
+            >
+              <div>
+               <Button
+                variant="contained"
+                color="primary"
+                className={
+                  isThemeLight
+                    ? `${classes.button} ${classes.saveButtonLight}`
+                    : `${classes.button} ${classes.saveButtonDark}`
+                }
+                // onClick={console.log('')}
+                id="saveButton"
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}                >
+                Save
+              </Button>
+              </div>
+             
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={
+                    isThemeLight
+                      ? `${classes.button} ${classes.saveButtonLight}`
+                      : `${classes.button} ${classes.saveButtonDark}`
+                  }
+                  // onClick={}
+                  sx={{
+                    textTransform: 'capitalize',
+                    padding: '4px 8px', // Reduces padding inside the button
+                    fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                    minWidth: '64px', // Optionally reduce the minimum width
+                    height: '32px' // Optionally reduce the height
+                  }}                  >
+                  Delete Instance
+                </Button>
+              </div>
+              <div style={{ marginLeft: '17px' }}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleUndo}
+              >
+                <Undo />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                sx={{
+                  textTransform: 'capitalize',
+                  padding: '4px 8px', // Reduces padding inside the button
+                  fontSize: '0.75rem', // Reduces the font size for a smaller overall appearance
+                  minWidth: '64px', // Optionally reduce the minimum width
+                  height: '32px' // Optionally reduce the height
+                }}  
+                // onClick={handleRedo}
+              >
+                <Redo />
+              </Button>
+            </div>
+              </div>
+              </AccordionDetails>
+          </Accordion>
+
           </div>
 
   );
@@ -1120,3 +1435,18 @@ const useStyles = makeStyles({
 });
 
 export default MUIProps;
+
+
+
+
+//AutoComplete
+//ButtonGroup
+//Checkbox
+//Fab
+//RadioGroup
+//Rating
+//Select
+//Slider
+//Switch
+//ToggleButtonGroup
+//TransferList
